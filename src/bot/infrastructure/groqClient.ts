@@ -7,7 +7,8 @@ export type GroqOptions = {
   apiKey: string;
   model: string;
   system: string;
-  user: string;
+  user?: string; // un solo mensaje
+  history?: { role: "user" | "assistant"; content: string }[]; // o una conversación
   temperature?: number;
   fetchImpl?: typeof fetch; // inyectable para pruebas
 };
@@ -20,7 +21,10 @@ export async function groqChat(o: GroqOptions): Promise<string | null> {
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${o.apiKey}` },
       body: JSON.stringify({
         model: o.model,
-        messages: [{ role: "system", content: o.system }, { role: "user", content: o.user.slice(0, 500) }],
+        messages: [
+          { role: "system", content: o.system },
+          ...(o.history ?? [{ role: "user" as const, content: o.user ?? "" }]).map((m) => ({ ...m, content: m.content.slice(0, 500) })),
+        ],
         max_tokens: 1000, // margen: los modelos de razonamiento gastan tokens pensando
         temperature: o.temperature ?? 0.3,
         reasoning_effort: "low",

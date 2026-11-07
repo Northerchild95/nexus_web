@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createDeps } from "./composition";
 import { createGroqAgent } from "./groqAgent";
+import { createGroqConverser } from "./groqConverser";
 import { buildKeyboard, createTelegramSender } from "./telegramApi";
 import { createUpstashStore } from "./upstashStore";
 
@@ -16,6 +17,19 @@ test("agente Groq: error HTTP, basura o acción inválida → null", async () =>
   for (const fetchImpl of [async () => jsonRes({}, 500), async () => groqReply("no es json"), async () => groqReply('{"action":"drop_db"}'), async () => { throw new Error("red"); }]) {
     assert.equal(await createGroqAgent({ apiKey: "k", model: "m", fetchImpl: fetchImpl as typeof fetch })("x", "es", "2026-11-07"), null);
   }
+});
+test("conversador Groq: envía sistema + historial en orden y devuelve el texto", async () => {
+  let body: { messages: { role: string; content: string }[] } = { messages: [] };
+  const fetchImpl = (async (_u: unknown, init: RequestInit) => { body = JSON.parse(init.body as string); return groqReply("Hola, claro."); }) as typeof fetch;
+  const converse = createGroqConverser({ apiKey: "k", model: "m", fetchImpl });
+  const out = await converse([{ role: "user", content: "hola" }, { role: "assistant", content: "¡hola!" }, { role: "user", content: "¿qué haces?" }], "es");
+  assert.equal(out, "Hola, claro.");
+  assert.deepEqual(body.messages.map((m) => m.role), ["system", "user", "assistant", "user"]);
+  assert.match(body.messages[0].content, /SOLO estos datos/);
+});
+test("conversador Groq: error HTTP → null", async () => {
+  const converse = createGroqConverser({ apiKey: "k", model: "m", fetchImpl: (async () => jsonRes({}, 500)) as typeof fetch });
+  assert.equal(await converse([{ role: "user", content: "hola" }], "es"), null);
 });
 test("Upstash: GET/SET por REST y datos corruptos → vacío", async () => {
   const calls: unknown[] = [];

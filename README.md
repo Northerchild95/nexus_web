@@ -75,10 +75,13 @@ Depurar: los logs son una línea JSON `{"level","scope","msg"}`. En Vercel filtr
 - Contacto opcional: define `NEXT_PUBLIC_CONTACT_EMAIL` y/o `NEXT_PUBLIC_GITHUB_URL`. `lib/contact.ts` valida los datos y descarta lo inválido. La sección Contacto solo aparece con 2 o más canales (Telegram cuenta); el Footer muestra los que existan.
 - Textos de Tecnología y Privacidad: describen el estado real del proyecto. Revísalos si cambia (por ejemplo, cuando la app tenga política de privacidad o añadas analíticas).
 
-## Chat embebido (bot público)
-- Botón flotante en la landing → `ChatWidget` (cliente) → `POST /api/chat` → `handleChat` (`application/chat.ts`) → FAQ → IA acotada → texto por defecto.
-- Solo responde preguntas públicas: no recibe el almacén de datos, así que no puede leer ni escribir datos personales.
-- Protecciones: verificación de origen, tope de tamaño, mensaje máx. 300 caracteres, 20 mensajes por visitante cada 10 min y 300 consultas a la IA al día en total. Con Upstash los contadores se comparten entre instancias; sin Upstash (o si falla) se usa memoria. Ajusta los números en `createChatDeps` (`infrastructure/composition.ts`).
+## Chat embebido (asistente conversacional)
+- Botón flotante → `ChatWidget` (cliente) → `POST /api/chat` con el historial reciente → `handleChat` (`application/chat.ts`).
+- **Conversa con memoria corta:** el navegador envía los últimos 8 mensajes en cada petición; el servidor no guarda nada. "Nueva conversación" reinicia el hilo.
+- Los botones sugeridos usan respuestas fijas (no gastan IA). El resto va a `createGroqConverser` (Groq). Si la IA falla o se agota el cupo diario, cae a la FAQ y luego a un texto por defecto.
+- El modelo solo conoce los datos de `domain/knowledge.ts` sobre la app y se le indica que no invente fechas, precios ni funciones. Puede dar consejos generales de organización, hábitos y finanzas.
+- Solo es público: no recibe el almacén de datos, así que no puede leer ni escribir datos personales.
+- Protecciones: verificación de origen, tope de tamaño, 300 caracteres por mensaje, 20 mensajes por visitante cada 10 min y 600 respuestas de IA al día en total (ajusta en `createChatDeps`). Con Upstash los contadores se comparten entre instancias; sin él, o si falla, se usa memoria.
 - Sin `GROQ_API_KEY` el chat sigue funcionando solo con la FAQ.
 
 ## FAQ animada

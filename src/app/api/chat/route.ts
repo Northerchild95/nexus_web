@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   const raw = await req.text();
   if (raw.length > 2000) return NextResponse.json({ error: "too_large" }, { status: 413 });
 
-  let body: { message?: unknown; locale?: unknown };
+  let body: { messages?: unknown; locale?: unknown };
   try {
     body = JSON.parse(raw);
   } catch {
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const result = await handleChat({ message: body?.message, locale: body?.locale, ip: clientIp(req.headers) }, createChatDeps());
+    const result = await handleChat({ messages: body?.messages, locale: body?.locale, ip: clientIp(req.headers) }, createChatDeps());
     if (result.status === "invalid") return NextResponse.json({ error: "invalid" }, { status: 400 });
     if (result.status === "rate_limited") return NextResponse.json({ error: "rate_limited" }, { status: 429 });
     return NextResponse.json({ reply: result.reply });

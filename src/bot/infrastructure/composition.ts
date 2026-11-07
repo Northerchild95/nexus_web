@@ -1,7 +1,8 @@
-import type { Answerer, ChatDeps, Deps, RateLimiter, Sender } from "../application/ports";
+import type { ChatDeps, Converser, Deps, RateLimiter, Sender } from "../application/ports";
 import { bogotaToday } from "../domain/dates";
 import { createGroqAgent } from "./groqAgent";
 import { createGroqAnswerer } from "./groqAnswer";
+import { createGroqConverser } from "./groqConverser";
 import { createMemoryLimiter, createUpstashLimiter, withFallback } from "./rateLimiter";
 import { createTelegramSender } from "./telegramApi";
 import { createUpstashStore } from "./upstashStore";
@@ -36,10 +37,10 @@ const memoryLimiter = (prefix: string, limit: number, windowSec: number) => {
   return memory.get(prefix)!;
 };
 
-/** Límites del chat web: 20 mensajes por visitante cada 10 min y 300 consultas a la IA al día en total. */
+/** Límites del chat web: 20 mensajes por visitante cada 10 min y 600 consultas a la IA al día en total. */
 export function createChatDeps(env: Env = process.env): ChatDeps {
   const model = env.GROQ_MODEL ?? "openai/gpt-oss-20b";
-  const answerer: Answerer | null = env.GROQ_API_KEY ? createGroqAnswerer({ apiKey: env.GROQ_API_KEY, model }) : null;
+  const converser: Converser | null = env.GROQ_API_KEY ? createGroqConverser({ apiKey: env.GROQ_API_KEY, model }) : null;
   const { UPSTASH_REDIS_REST_URL: url, UPSTASH_REDIS_REST_TOKEN: token } = env;
 
   const limiter = (prefix: string, limit: number, windowSec: number): RateLimiter => {
@@ -47,11 +48,11 @@ export function createChatDeps(env: Env = process.env): ChatDeps {
     return url && token ? withFallback(createUpstashLimiter(url, token, { limit, windowSec, prefix }), local) : local;
   };
   const perVisitor = limiter("chat:ip:", 20, 600);
-  const aiBudget = limiter("chat:ai:", 300, 86400);
+  const aiBudget = limiter("chat:ai:", 600, 86400);
 
   return {
     limiter: perVisitor,
-    // El presupuesto diario solo se gasta cuando la FAQ no alcanza y hay que llamar a la IA.
-    answerer: answerer && (async (q, l) => ((await aiBudget.allow("global")) ? answerer(q, l) : null)),
+    // Cada respuesta de IA gasta del presupuesto diario; al agotarse, el chat cae a la FAQ.
+    converser: converser && (async (h, l) => ((await aiBudget.allow("global")) ? converser(h, l) : null)),
   };
 }

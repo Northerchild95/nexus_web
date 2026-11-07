@@ -296,7 +296,7 @@
     },
     "bot": {
       "title": "Asistente (Telegram y chat web)",
-      "text": "Responde con textos predefinidos y, si no encuentra la respuesta, envía tu pregunta a un modelo de IA gratuito (Groq). No guardamos esas conversaciones. El chat de la web limita los mensajes por visitante (según su IP, solo durante unos minutos) para evitar abusos."
+      "text": "En Telegram responde con textos predefinidos y, si no encuentra la respuesta, consulta un modelo de IA gratuito (Groq). En el chat de la web, tus últimos mensajes se envían a Groq para generar la respuesta. No guardamos esas conversaciones. El chat limita los mensajes por visitante (según su IP, solo durante unos minutos) para evitar abusos."
     },
     "app": {
       "title": "La app",
@@ -323,12 +323,13 @@
     "open": "Abrir el chat",
     "close": "Cerrar el chat",
     "title": "Asistente de Nexus",
-    "greeting": "¡Hola! Soy el asistente de Nexus Life. Pregúntame lo que quieras sobre la app.",
+    "greeting": "¡Hola! Soy el asistente de Nexus Life. Puedo contarte sobre la app o darte ideas para organizar tu día. ¿Qué quieres saber?",
     "suggestions": "Preguntas sugeridas",
     "placeholder": "Escribe tu pregunta",
     "send": "Enviar",
     "thinking": "Escribiendo…",
     "error": "No pude responder ahora. Inténtalo de nuevo en un momento.",
-    "rateLimited": "Has enviado muchos mensajes. Espera unos minutos e inténtalo otra vez."
+    "rateLimited": "Has enviado muchos mensajes. Espera unos minutos e inténtalo otra vez.",
+    "reset": "Nueva conversación"
   }
 }

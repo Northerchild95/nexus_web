@@ -13,7 +13,7 @@ export default function Chat() {
       suggestions={suggestions}
       labels={{
         open: t("open"), close: t("close"), title: t("title"), greeting: t("greeting"), suggestions: t("suggestions"),
-        placeholder: t("placeholder"), send: t("send"), thinking: t("thinking"), error: t("error"), rateLimited: t("rateLimited"),
+        placeholder: t("placeholder"), send: t("send"), reset: t("reset"), thinking: t("thinking"), error: t("error"), rateLimited: t("rateLimited"),
       }}
     />
   );

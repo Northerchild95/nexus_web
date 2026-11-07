@@ -1,3 +1,4 @@
+import type { ChatTurn } from "../../config/chat";
 import type { BotLocale } from "../domain/knowledge";
 import type { Action, UserData } from "../domain/types";
 
@@ -14,7 +15,9 @@ export type Sender = (chatId: number, text: string, menu?: string[]) => Promise<
 export interface RateLimiter {
   allow(key: string): Promise<boolean>;
 }
-export type ChatDeps = { answerer: Answerer | null; limiter: RateLimiter };
+/** Conversa con contexto: recibe los últimos mensajes y devuelve la respuesta (o null si la IA falla). */
+export type Converser = (history: ChatTurn[], locale: BotLocale) => Promise<string | null>;
+export type ChatDeps = { converser: Converser | null; limiter: RateLimiter };
 
 export type Deps = {
   store: UserStore | null; // null = Upstash sin configurar

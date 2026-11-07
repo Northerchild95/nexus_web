@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { clientIp, isSameOrigin } from "./http";
-import { postChat } from "./chatClient";
+import { postChat, toHistory } from "./chatClient";
 
 test("origen: solo el mismo host", () => {
   assert.equal(isSameOrigin("https://nexus.app", "nexus.app"), true);
@@ -15,11 +15,24 @@ test("IP: primer valor de x-forwarded-for, luego x-real-ip, luego unknown", () =
   assert.equal(clientIp(h({ "x-real-ip": "9.9.9.9" })), "9.9.9.9");
   assert.equal(clientIp(h({})), "unknown");
 });
+test("toHistory: omite errores, mapea roles y recorta", () => {
+  const h = toHistory([
+    { role: "user", text: "hola" },
+    { role: "bot", text: "falló", error: true },
+    { role: "bot", text: "¡hola!" },
+    { role: "user", text: "¿precio?" },
+  ]);
+  assert.deepEqual(h, [{ role: "user", content: "hola" }, { role: "assistant", content: "¡hola!" }, { role: "user", content: "¿precio?" }]);
+  assert.equal(toHistory(Array.from({ length: 30 }, () => ({ role: "user" as const, text: "a" }))).length, 8);
+});
 test("cliente del chat: éxito, 429, error HTTP y red caída", async () => {
   const res = (body: unknown, status = 200) => (async () => new Response(JSON.stringify(body), { status })) as unknown as typeof fetch;
-  assert.deepEqual(await postChat("hola", "es", res({ reply: "ok" })), { ok: true, reply: "ok" });
-  assert.deepEqual(await postChat("hola", "es", res({}, 429)), { ok: false, reason: "rate_limited" });
-  assert.deepEqual(await postChat("hola", "es", res({}, 500)), { ok: false, reason: "error" });
-  assert.deepEqual(await postChat("hola", "es", res({ nada: 1 })), { ok: false, reason: "error" });
-  assert.deepEqual(await postChat("hola", "es", (async () => { throw new Error("red"); }) as typeof fetch), { ok: false, reason: "error" });
+  let sent: unknown;
+  await postChat([{ role: "user", content: "hola" }], "es", (async (_u: unknown, init: RequestInit) => { sent = JSON.parse(init.body as string); return new Response(JSON.stringify({ reply: "x" })); }) as typeof fetch);
+  assert.deepEqual(sent, { messages: [{ role: "user", content: "hola" }], locale: "es" });
+  assert.deepEqual(await postChat([{ role: "user", content: "hola" }], "es", res({ reply: "ok" })), { ok: true, reply: "ok" });
+  assert.deepEqual(await postChat([{ role: "user", content: "hola" }], "es", res({}, 429)), { ok: false, reason: "rate_limited" });
+  assert.deepEqual(await postChat([{ role: "user", content: "hola" }], "es", res({}, 500)), { ok: false, reason: "error" });
+  assert.deepEqual(await postChat([{ role: "user", content: "hola" }], "es", res({ nada: 1 })), { ok: false, reason: "error" });
+  assert.deepEqual(await postChat([{ role: "user", content: "hola" }], "es", (async () => { throw new Error("red"); }) as typeof fetch), { ok: false, reason: "error" });
 });
