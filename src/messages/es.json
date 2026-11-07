@@ -73,7 +73,11 @@
   },
   "Footer": {
     "title": "Un día claro empieza con un solo sistema.",
-    "note": "Proyecto personal de aprendizaje. Hecho con Next.js, GSAP y Lenis."
+    "note": "Proyecto personal de aprendizaje. Hecho con Next.js, GSAP y Lenis.",
+    "product": "Producto",
+    "project": "Proyecto",
+    "contact": "Contacto",
+    "copyright": "© {year} Nexus Life"
   },
   "Nav": {
     "label": "Navegación principal",
@@ -81,7 +85,11 @@
     "about": "Quiénes somos",
     "milestones": "Hitos",
     "opinions": "Opiniones",
-    "faq": "Preguntas"
+    "faq": "Preguntas",
+    "how": "Cómo funciona",
+    "tech": "Tecnología",
+    "privacy": "Privacidad",
+    "contact": "Contacto"
   },
   "Features": {
     "title": "Todo lo que necesitas para tu día",
@@ -249,5 +257,53 @@
     "title": "Página no encontrada",
     "text": "La página que buscas no existe o cambió de lugar.",
     "home": "Volver al inicio"
+  },
+  "Tech": {
+    "title": "Construido con tecnología moderna",
+    "lead": "Un proyecto personal con estándares de producto: arquitectura por capas, pruebas automáticas y dos idiomas.",
+    "app": {
+      "title": "La app móvil",
+      "text": "Desarrollada con React Native y Expo, con estilos en NativeWind, estado con Zustand y una arquitectura limpia dividida por módulos."
+    },
+    "web": {
+      "title": "Esta web",
+      "text": "Next.js con renderizado en el servidor, TypeScript, Tailwind, animaciones con GSAP y traducciones con next-intl."
+    },
+    "assistant": {
+      "title": "El asistente",
+      "text": "Un bot de Telegram con la lógica separada por capas, datos en Upstash Redis y un modelo de IA gratuito de Groq como respaldo."
+    }
+  },
+  "Privacy": {
+    "title": "Privacidad y datos",
+    "lead": "Qué hace cada parte del proyecto con tu información, explicado sin letra pequeña.",
+    "web": {
+      "title": "Esta web",
+      "text": "No incluimos analíticas ni cookies de seguimiento. Solo se guardan en tu navegador tus preferencias de tema e idioma. El alojamiento (Vercel) puede registrar datos técnicos de las visitas."
+    },
+    "bot": {
+      "title": "Asistente de Telegram",
+      "text": "Responde con textos predefinidos y, si no encuentra la respuesta, envía tu pregunta a un modelo de IA gratuito (Groq). No guardamos esas conversaciones."
+    },
+    "app": {
+      "title": "La app",
+      "text": "Sigue en desarrollo, por lo que su política de privacidad todavía no está publicada."
+    }
+  },
+  "Contact": {
+    "title": "Hablemos",
+    "lead": "¿Dudas, ideas o ganas de probar la app? Elige el canal que prefieras.",
+    "telegram": {
+      "label": "Telegram",
+      "text": "Escríbele al asistente"
+    },
+    "email": {
+      "label": "Correo",
+      "text": "Escríbenos un mensaje"
+    },
+    "github": {
+      "label": "GitHub",
+      "text": "Mira el código del proyecto"
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import { KNOWLEDGE, type BotLocale } from "@/bot/domain/knowledge";
+import { telegramChannel } from "@/config/contact";
 
 // Los mensajes del chat de muestra salen de la misma base de conocimiento que usa el bot real.
 const Q1_FAQ = 0; // "qué es"
@@ -18,15 +19,14 @@ function Bubble({ from, children }: { from: "user" | "bot"; children: React.Reac
 export default function BotSection() {
   const t = useTranslations("Bot");
   const faqs = KNOWLEDGE[useLocale() as BotLocale].faqs;
-  const bot = process.env.NEXT_PUBLIC_TELEGRAM_BOT; // usuario público del bot (no es un secreto)
 
   return (
     <section id="bot" className="mx-auto grid max-w-6xl scroll-mt-24 items-center gap-12 px-6 py-24 md:grid-cols-2">
       <div>
         <h2 className="text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl">{t("title")}</h2>
         <p className="mt-4 text-lg leading-7 text-muted">{t("lead")}</p>
-        {bot ? (
-          <a href={`https://t.me/${bot}`} target="_blank" rel="noopener noreferrer"
+        {telegramChannel ? (
+          <a href={telegramChannel.href} target="_blank" rel="noopener noreferrer"
             className="mt-8 inline-block rounded-full bg-brand-600 px-6 py-3 font-semibold text-white shadow-lift">
             {t("cta")}
           </a>

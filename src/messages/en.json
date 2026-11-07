@@ -73,7 +73,11 @@
   },
   "Footer": {
     "title": "A clear day starts with a single system.",
-    "note": "Personal learning project. Built with Next.js, GSAP and Lenis."
+    "note": "Personal learning project. Built with Next.js, GSAP and Lenis.",
+    "product": "Product",
+    "project": "Project",
+    "contact": "Contact",
+    "copyright": "© {year} Nexus Life"
   },
   "Nav": {
     "label": "Main navigation",
@@ -81,7 +85,11 @@
     "about": "About us",
     "milestones": "Milestones",
     "opinions": "Reviews",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "how": "How it works",
+    "tech": "Technology",
+    "privacy": "Privacy",
+    "contact": "Contact"
   },
   "Features": {
     "title": "Everything you need for your day",
@@ -249,5 +257,53 @@
     "title": "Page not found",
     "text": "The page you're looking for doesn't exist or has moved.",
     "home": "Back to home"
+  },
+  "Tech": {
+    "title": "Built with modern technology",
+    "lead": "A personal project with product standards: layered architecture, automated tests and two languages.",
+    "app": {
+      "title": "The mobile app",
+      "text": "Built with React Native and Expo, styled with NativeWind, state managed with Zustand, and a clean architecture split into modules."
+    },
+    "web": {
+      "title": "This website",
+      "text": "Next.js with server rendering, TypeScript, Tailwind, GSAP animations and next-intl translations."
+    },
+    "assistant": {
+      "title": "The assistant",
+      "text": "A Telegram bot with layered logic, data in Upstash Redis and a free Groq AI model as a fallback."
+    }
+  },
+  "Privacy": {
+    "title": "Privacy and data",
+    "lead": "What each part of the project does with your information, explained without fine print.",
+    "web": {
+      "title": "This website",
+      "text": "We don't include analytics or tracking cookies. Only your theme and language preferences are stored in your browser. The hosting provider (Vercel) may log technical data about visits."
+    },
+    "bot": {
+      "title": "Telegram assistant",
+      "text": "It answers with predefined texts and, if it can't find an answer, sends your question to a free AI model (Groq). We don't store those conversations."
+    },
+    "app": {
+      "title": "The app",
+      "text": "It's still in development, so its privacy policy isn't published yet."
+    }
+  },
+  "Contact": {
+    "title": "Let's talk",
+    "lead": "Questions, ideas or want to try the app? Pick the channel you prefer.",
+    "telegram": {
+      "label": "Telegram",
+      "text": "Message the assistant"
+    },
+    "email": {
+      "label": "Email",
+      "text": "Send us a message"
+    },
+    "github": {
+      "label": "GitHub",
+      "text": "See the project's code"
+    }
   }
 }

@@ -1,8 +1,10 @@
 import { useTranslations } from "next-intl";
 import LocaleSwitcher from "@/components/ui/LocaleSwitcher";
 import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
+import { showContactSection } from "@/config/contact";
+import { visibleSections } from "@/config/sections";
 
-const LINKS = ["features", "about", "milestones", "opinions", "faq"] as const;
+const LINKS = visibleSections(showContactSection).filter((s) => s.nav);
 
 export default function Header() {
   const t = useTranslations("Nav");
@@ -12,7 +14,7 @@ export default function Header() {
         Nexus Life
       </a>
       <nav aria-label={t("label")} className="pointer-events-auto hidden rounded-full bg-card p-1 shadow-card md:flex">
-        {LINKS.map((l) => (
+        {LINKS.map(({ id: l }) => (
           <a key={l} href={`#${l}`} className="rounded-full px-4 py-1.5 text-sm font-semibold text-muted hover:text-ink">
             {t(l)}
           </a>

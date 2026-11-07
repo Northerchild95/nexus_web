@@ -68,3 +68,9 @@ Depurar: los logs son una línea JSON `{"level","scope","msg"}`. En Vercel filtr
 - Metadatos por idioma, `hreflang`, `viewport` con `themeColor` claro/oscuro, Open Graph (`opengraph-image.tsx`) y Twitter card.
 - JSON-LD `WebSite` y `FAQPage` (generado desde los mismos textos de la FAQ).
 - `sitemap.ts`, `robots.ts` (bloquea solo `/api/`), `manifest.ts` e `icon.tsx`. Es un manifiesto básico: permite añadir a pantalla de inicio, pero no hay service worker ni modo offline.
+
+## Secciones y contacto
+- Orden de la página: Hero → recorrido (World) → Cómo funciona → Funciones → Quiénes somos → Tecnología → Hitos → Opiniones → FAQ → Privacidad → Bot → Contacto (opcional).
+- `src/config/sections.ts` es la fuente única de las anclas: el Header y el Footer se generan desde ahí. Un test falla si una sección no tiene etiqueta en `Nav` (es/en).
+- Contacto opcional: define `NEXT_PUBLIC_CONTACT_EMAIL` y/o `NEXT_PUBLIC_GITHUB_URL`. `lib/contact.ts` valida los datos y descarta lo inválido. La sección Contacto solo aparece con 2 o más canales (Telegram cuenta); el Footer muestra los que existan.
+- Textos de Tecnología y Privacidad: describen el estado real del proyecto. Revísalos si cambia (por ejemplo, cuando la app tenga política de privacidad o añadas analíticas).
