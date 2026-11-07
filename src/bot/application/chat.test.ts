@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { CHAT_MAX_LENGTH, CHAT_MAX_TURNS, type ChatTurn } from "../../config/chat";
+import { CHAT_MAX_ASSISTANT_LENGTH, CHAT_MAX_LENGTH, CHAT_MAX_TURNS, type ChatTurn } from "../../config/chat";
 import { handleChat, parseTurns } from "./chat";
 import type { ChatDeps, Converser } from "./ports";
 
@@ -21,6 +21,18 @@ test("parseTurns: valida roles, textos y que termine en el usuario", () => {
   assert.equal(parseTurns([user("x".repeat(CHAT_MAX_LENGTH + 1))]), null);
   assert.equal(parseTurns([user("hola"), bot("¿en qué te ayudo?")]), null); // debe terminar en usuario
   assert.equal(parseTurns(Array.from({ length: CHAT_MAX_TURNS * 2 + 1 }, () => user("a"))), null);
+});
+test("parseTurns: acepta respuestas largas del asistente (regresión del chat de 2 mensajes)", () => {
+  const long = "a".repeat(CHAT_MAX_LENGTH + 100); // más que el límite del usuario
+  assert.ok(parseTurns([user("hola"), bot(long), user("¿y ahora?")]));
+  assert.equal(parseTurns([user("hola"), bot("a".repeat(CHAT_MAX_ASSISTANT_LENGTH + 1)), user("¿y ahora?")]), null);
+});
+test("conversación real de varios turnos con respuesta larga llega a la IA", async () => {
+  let received: ChatTurn[] = [];
+  const history = [user("soy nuevo, ¿qué es Nexus Life?"), bot("Nexus Life es una app móvil ".repeat(20)), user("¿cómo creo una tarea?")];
+  const r = await handleChat(input(history), deps({ converser: async (h) => { received = h; return "ok"; } }));
+  assert.equal(reply(r), "ok");
+  assert.equal(received.length, 3);
 });
 test("parseTurns: recorta al contexto más reciente", () => {
   const long: ChatTurn[] = [];

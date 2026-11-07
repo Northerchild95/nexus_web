@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { CHAT_MAX_BODY } from "@/config/chat";
 import { handleChat } from "@/bot/application/chat";
 import { createChatDeps } from "@/bot/infrastructure/composition";
 import { clientIp, isSameOrigin } from "@/lib/http";
@@ -13,7 +14,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
   const raw = await req.text();
-  if (raw.length > 2000) return NextResponse.json({ error: "too_large" }, { status: 413 });
+  if (raw.length > CHAT_MAX_BODY) return NextResponse.json({ error: "too_large" }, { status: 413 });
 
   let body: { messages?: unknown; locale?: unknown };
   try {

@@ -1,4 +1,4 @@
-import { CHAT_MAX_LENGTH, CHAT_MAX_TURNS, type ChatTurn } from "../../config/chat";
+import { CHAT_MAX_ASSISTANT_LENGTH, CHAT_MAX_LENGTH, CHAT_MAX_TURNS, type ChatTurn } from "../../config/chat";
 import { pickLocale } from "../domain/detect";
 import { matchFaq, norm } from "../domain/faq";
 import { KNOWLEDGE } from "../domain/knowledge";
@@ -17,7 +17,9 @@ export function parseTurns(raw: unknown): ChatTurn[] | null {
     const content = (item as { content?: unknown })?.content;
     if ((role !== "user" && role !== "assistant") || typeof content !== "string") return null;
     const text = content.trim();
-    if (!text || text.length > CHAT_MAX_LENGTH) return null;
+    // El límite estricto es para lo que escribe el usuario; las respuestas del asistente pueden ser más largas.
+    const max = role === "user" ? CHAT_MAX_LENGTH : CHAT_MAX_ASSISTANT_LENGTH;
+    if (!text || text.length > max) return null;
     turns.push({ role, content: text });
   }
   return turns[turns.length - 1].role === "user" ? turns.slice(-CHAT_MAX_TURNS) : null;

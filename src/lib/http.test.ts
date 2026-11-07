@@ -23,6 +23,8 @@ test("toHistory: omite errores, mapea roles y recorta", () => {
     { role: "user", text: "¿precio?" },
   ]);
   assert.deepEqual(h, [{ role: "user", content: "hola" }, { role: "assistant", content: "¡hola!" }, { role: "user", content: "¿precio?" }]);
+  const [{ content }] = toHistory([{ role: "bot", text: "x".repeat(2000) }]);
+  assert.equal(content.length, 500); // el contexto reenviado se acota
   assert.equal(toHistory(Array.from({ length: 30 }, () => ({ role: "user" as const, text: "a" }))).length, 8);
 });
 test("cliente del chat: éxito, 429, error HTTP y red caída", async () => {

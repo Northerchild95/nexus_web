@@ -1,4 +1,4 @@
-import { CHAT_MAX_TURNS, type ChatTurn } from "../config/chat";
+import { CHAT_CONTEXT_CHARS, CHAT_MAX_TURNS, type ChatTurn } from "../config/chat";
 
 export type ChatOutcome = { ok: true; reply: string } | { ok: false; reason: "rate_limited" | "error" };
 export type UiMessage = { role: "user" | "bot"; text: string; error?: boolean };
@@ -8,7 +8,7 @@ export function toHistory(messages: UiMessage[]): ChatTurn[] {
   return messages
     .filter((m) => !m.error)
     .slice(-CHAT_MAX_TURNS)
-    .map((m) => ({ role: m.role === "user" ? "user" : "assistant", content: m.text }));
+    .map((m) => ({ role: m.role === "user" ? "user" : "assistant", content: m.text.slice(0, CHAT_CONTEXT_CHARS) }));
 }
 
 /** Llamada del navegador a /api/chat. Nunca lanza: siempre devuelve un resultado que la UI puede mostrar. */
