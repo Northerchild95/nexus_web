@@ -3,7 +3,7 @@ export type BotLocale = "es" | "en";
 type Faq = { keywords: string[]; answer: string };
 type Knowledge = { welcome: string; fallback: string; menu: string[]; faqs: Faq[] };
 
-export const KNOWLEDGE = {
+export const KNOWLEDGE: Record<BotLocale, Knowledge> = {
   es: {
     welcome:
       "¡Hola! Soy el asistente de Nexus Life, una app para organizar tus días: foco, tareas, hábitos y gastos. Pregúntame lo que quieras sobre la app.",
@@ -54,4 +54,4 @@ export const KNOWLEDGE = {
         answer: "Nexus Life is still in development, with no release date or download links yet." },
     ],
   },
-} satisfies Record<BotLocale, Knowledge>;
+};
