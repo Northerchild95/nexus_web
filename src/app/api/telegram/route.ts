@@ -14,7 +14,6 @@ function keyboard(locale: BotLocale) {
   return {
     keyboard: menu.map((row) => row.map((text) => ({ text }))),
     resize_keyboard: true,
-    is_persistent: true,
   };
 }
 
