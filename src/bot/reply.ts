@@ -22,7 +22,19 @@ export async function buildReply({ text, chatId, updateId, locale }: Input): Pro
   const personal = isAllowed(chatId) && storeConfigured();
   const menu = personal ? k.menuPersonal : k.menu;
 
-  if (/^\/id\b/i.test(text)) return { text: `chat id: ${chatId}`, menu };
+  if (/^\/id\b/i.test(text)) {
+    // Diagnóstico: no muestra ningún secreto, solo si cada pieza está configurada.
+    const allowed = isAllowed(chatId);
+    return {
+      text: [
+        `chat id: ${chatId}`,
+        `autorizado (TELEGRAM_ALLOWED_CHAT_IDS): ${allowed ? "sí" : "no"}`,
+        `Upstash configurado: ${storeConfigured() ? "sí" : "no"}`,
+        `Groq configurado: ${process.env.GROQ_API_KEY ? "sí" : "no"}`,
+      ].join("\n"),
+      menu,
+    };
+  }
   if (/^\/(start|help)\b/i.test(text)) return { text: personal ? k.welcomePersonal : k.welcome, menu };
 
   const isMenuLabel = [...KNOWLEDGE.es.menu, ...KNOWLEDGE.en.menu].some((l) => norm(l) === norm(text));

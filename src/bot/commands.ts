@@ -16,9 +16,15 @@ export function parseCommand(text: string): Action | null {
   let m: RegExpMatchArray | null;
 
   if ((m = t.match(/^\/?(?:gast[eé]|gasto|expense|spent)\s+(\S+)\s*(.*)$/i))) {
-    const amount = parseAmount(m[1]);
+    let rest = m[2];
+    let raw = m[1];
+    if (/^mil\b/i.test(rest)) { // "18 mil" → "18mil"
+      raw += "mil";
+      rest = rest.replace(/^mil\b\s*/i, "");
+    }
+    const amount = parseAmount(raw);
     if (amount) {
-      const note = m[2].replace(/^(en|on|in|de|for)\s+/i, "").trim();
+      const note = rest.replace(/^(en|on|in|de|for)\s+/i, "").trim();
       return { action: "add_expense", amount, category: guessCategory(note), note };
     }
   }
