@@ -181,16 +181,29 @@
     "lead": "Un espacio para las primeras impresiones de quienes prueben la app.",
     "sample": "Texto de ejemplo, se reemplazará por opiniones reales.",
     "a": {
-      "quote": "Por fin veo mis tareas, mis hábitos y mis gastos en un mismo lugar, sin saltar entre apps.",
-      "role": "Estudiante"
+      "quote": "Por fin veo mis tareas, mis hábitos y mis gastos en un mismo lugar, sin saltar entre apps. Empiezo el día sabiendo qué sigue.",
+      "name": "Camila",
+      "role": "Estudiante de ingeniería"
     },
     "b": {
-      "quote": "El modo foco me ayuda a empezar. Elijo una cosa y listo.",
+      "quote": "El modo foco me ayuda a empezar. Elijo una sola cosa, activo el temporizador y listo.",
+      "name": "Andrés",
       "role": "Freelancer"
     },
     "c": {
-      "quote": "Ver mi racha de hábitos me da ganas de no romperla.",
+      "quote": "Ver mi racha de hábitos me da ganas de no romperla. Es algo pequeño, pero funciona.",
+      "name": "Valentina",
       "role": "Diseñadora"
+    },
+    "d": {
+      "quote": "Registrar un gasto toma segundos, y al final de la semana sé exactamente en qué se fue mi dinero.",
+      "name": "Mateo",
+      "role": "Desarrollador"
+    },
+    "e": {
+      "quote": "Me gusta que se vea tranquila. No me abruma, solo me muestra lo que toca hoy.",
+      "name": "Laura",
+      "role": "Profesora"
     }
   },
   "Bot": {
@@ -282,8 +295,8 @@
       "text": "No incluimos analíticas ni cookies de seguimiento. Solo se guardan en tu navegador tus preferencias de tema e idioma. El alojamiento (Vercel) puede registrar datos técnicos de las visitas."
     },
     "bot": {
-      "title": "Asistente de Telegram",
-      "text": "Responde con textos predefinidos y, si no encuentra la respuesta, envía tu pregunta a un modelo de IA gratuito (Groq). No guardamos esas conversaciones."
+      "title": "Asistente (Telegram y chat web)",
+      "text": "Responde con textos predefinidos y, si no encuentra la respuesta, envía tu pregunta a un modelo de IA gratuito (Groq). No guardamos esas conversaciones. El chat de la web limita los mensajes por visitante (según su IP, solo durante unos minutos) para evitar abusos."
     },
     "app": {
       "title": "La app",
@@ -305,5 +318,17 @@
       "label": "GitHub",
       "text": "Mira el código del proyecto"
     }
+  },
+  "Chat": {
+    "open": "Abrir el chat",
+    "close": "Cerrar el chat",
+    "title": "Asistente de Nexus",
+    "greeting": "¡Hola! Soy el asistente de Nexus Life. Pregúntame lo que quieras sobre la app.",
+    "suggestions": "Preguntas sugeridas",
+    "placeholder": "Escribe tu pregunta",
+    "send": "Enviar",
+    "thinking": "Escribiendo…",
+    "error": "No pude responder ahora. Inténtalo de nuevo en un momento.",
+    "rateLimited": "Has enviado muchos mensajes. Espera unos minutos e inténtalo otra vez."
   }
 }

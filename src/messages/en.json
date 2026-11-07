@@ -181,16 +181,29 @@
     "lead": "A space for first impressions from the people who try the app.",
     "sample": "Sample text, to be replaced with real reviews.",
     "a": {
-      "quote": "I finally see my tasks, habits and spending in one place, without jumping between apps.",
-      "role": "Student"
+      "quote": "I finally see my tasks, habits and spending in one place, without jumping between apps. I start the day knowing what's next.",
+      "name": "Camila",
+      "role": "Engineering student"
     },
     "b": {
-      "quote": "Focus mode helps me get started. I pick one thing and go.",
+      "quote": "Focus mode helps me get started. I pick one thing, start the timer, and go.",
+      "name": "Andrés",
       "role": "Freelancer"
     },
     "c": {
-      "quote": "Seeing my habit streak makes me not want to break it.",
+      "quote": "Seeing my habit streak makes me not want to break it. It's a small thing, but it works.",
+      "name": "Valentina",
       "role": "Designer"
+    },
+    "d": {
+      "quote": "Logging an expense takes seconds, and by the end of the week I know exactly where my money went.",
+      "name": "Mateo",
+      "role": "Developer"
+    },
+    "e": {
+      "quote": "I like that it feels calm. It doesn't overwhelm me, it just shows what's due today.",
+      "name": "Laura",
+      "role": "Teacher"
     }
   },
   "Bot": {
@@ -282,8 +295,8 @@
       "text": "We don't include analytics or tracking cookies. Only your theme and language preferences are stored in your browser. The hosting provider (Vercel) may log technical data about visits."
     },
     "bot": {
-      "title": "Telegram assistant",
-      "text": "It answers with predefined texts and, if it can't find an answer, sends your question to a free AI model (Groq). We don't store those conversations."
+      "title": "Assistant (Telegram and web chat)",
+      "text": "It answers with predefined texts and, if it can't find an answer, sends your question to a free AI model (Groq). We don't store those conversations. The web chat limits messages per visitor (by IP, only for a few minutes) to prevent abuse."
     },
     "app": {
       "title": "The app",
@@ -305,5 +318,17 @@
       "label": "GitHub",
       "text": "See the project's code"
     }
+  },
+  "Chat": {
+    "open": "Open the chat",
+    "close": "Close the chat",
+    "title": "Nexus assistant",
+    "greeting": "Hi! I'm the Nexus Life assistant. Ask me anything about the app.",
+    "suggestions": "Suggested questions",
+    "placeholder": "Type your question",
+    "send": "Send",
+    "thinking": "Typing…",
+    "error": "I couldn't answer right now. Please try again in a moment.",
+    "rateLimited": "You've sent a lot of messages. Wait a few minutes and try again."
   }
 }

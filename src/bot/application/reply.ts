@@ -1,9 +1,10 @@
 import { createLogger } from "../../lib/logger";
 import { execute } from "../domain/actions";
 import { parseCommand } from "../domain/commands";
-import { matchFaq, norm } from "../domain/faq";
+import { norm } from "../domain/faq";
 import { KNOWLEDGE, type BotLocale } from "../domain/knowledge";
 import type { Deps } from "./ports";
+import { answerPublic } from "./publicReply";
 
 const log = createLogger("bot");
 
@@ -58,6 +59,5 @@ export async function buildReply({ text, chatId, updateId, locale }: ReplyInput,
     }
   }
 
-  const answer = matchFaq(text, locale) ?? (deps.answerer ? await deps.answerer(text, locale) : null) ?? k.fallback;
-  return { text: answer, menu };
+  return { text: await answerPublic(text, locale, deps.answerer, k.fallback), menu };
 }

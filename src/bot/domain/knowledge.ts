@@ -6,6 +6,7 @@ type Knowledge = {
   welcomePersonal: string;
   unsupported: string;
   fallback: string;
+  fallbackWeb: string;
   menu: string[];
   menuPersonal: string[];
   faqs: Faq[];
@@ -17,6 +18,7 @@ export const KNOWLEDGE: Record<BotLocale, Knowledge> = {
       "¡Hola! Soy el asistente de Nexus Life, una app para organizar tus días: foco, tareas, hábitos y gastos. Pregúntame lo que quieras sobre la app.",
     fallback:
       "No tengo esa información. Solo puedo responder preguntas sobre Nexus Life (no registro tareas ni hábitos; para eso está la app). Usa los botones de abajo o pregúntame con otras palabras.",
+    fallbackWeb: "No tengo esa información. Solo puedo responder preguntas sobre Nexus Life; prueba con una sugerencia o pregunta con otras palabras.",
     menu: ["Qué es", "Funciones", "Foco", "Tareas", "Hábitos", "Finanzas", "Precio", "Lanzamiento"],
     menuPersonal: ["Mis tareas", "Mis gastos", "Qué es", "Funciones", "Precio", "Lanzamiento"],
     welcomePersonal:
@@ -47,6 +49,7 @@ export const KNOWLEDGE: Record<BotLocale, Knowledge> = {
       "Hi! I'm the Nexus Life assistant. Nexus Life is an app to organize your days: focus, tasks, habits and spending. Ask me anything about it.",
     fallback:
       "I don't have that information. I can only answer questions about Nexus Life (I don't log tasks or habits; the app does that). Use the buttons below or rephrase your question.",
+    fallbackWeb: "I don't have that information. I can only answer questions about Nexus Life; try a suggestion or rephrase your question.",
     menu: ["What is it", "Features", "Focus", "Tasks", "Habits", "Finance", "Price", "Release"],
     menuPersonal: ["My tasks", "My expenses", "What is it", "Features", "Price", "Release"],
     welcomePersonal:

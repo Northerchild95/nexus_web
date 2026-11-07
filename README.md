@@ -74,3 +74,12 @@ Depurar: los logs son una línea JSON `{"level","scope","msg"}`. En Vercel filtr
 - `src/config/sections.ts` es la fuente única de las anclas: el Header y el Footer se generan desde ahí. Un test falla si una sección no tiene etiqueta en `Nav` (es/en).
 - Contacto opcional: define `NEXT_PUBLIC_CONTACT_EMAIL` y/o `NEXT_PUBLIC_GITHUB_URL`. `lib/contact.ts` valida los datos y descarta lo inválido. La sección Contacto solo aparece con 2 o más canales (Telegram cuenta); el Footer muestra los que existan.
 - Textos de Tecnología y Privacidad: describen el estado real del proyecto. Revísalos si cambia (por ejemplo, cuando la app tenga política de privacidad o añadas analíticas).
+
+## Chat embebido (bot público)
+- Botón flotante en la landing → `ChatWidget` (cliente) → `POST /api/chat` → `handleChat` (`application/chat.ts`) → FAQ → IA acotada → texto por defecto.
+- Solo responde preguntas públicas: no recibe el almacén de datos, así que no puede leer ni escribir datos personales.
+- Protecciones: verificación de origen, tope de tamaño, mensaje máx. 300 caracteres, 20 mensajes por visitante cada 10 min y 300 consultas a la IA al día en total. Con Upstash los contadores se comparten entre instancias; sin Upstash (o si falla) se usa memoria. Ajusta los números en `createChatDeps` (`infrastructure/composition.ts`).
+- Sin `GROQ_API_KEY` el chat sigue funcionando solo con la FAQ.
+
+## FAQ animada
+La duración y la curva están en `src/config/ui.ts` (`FAQ_ANIMATION_MS`, `FAQ_EASING`). Respeta `prefers-reduced-motion`.

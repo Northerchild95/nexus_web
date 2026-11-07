@@ -16,7 +16,9 @@ export default function Opinions() {
             <blockquote className={`font-semibold leading-snug tracking-tight ${i === 0 ? "text-3xl md:text-4xl" : "text-xl"}`}>
               “{t(`${o}.quote`)}”
             </blockquote>
-            <figcaption className="mt-4 text-muted">{t(`${o}.role`)}</figcaption>
+            <figcaption className="mt-4 text-muted">
+              <span className="font-semibold text-ink">{t(`${o}.name`)}</span> · {t(`${o}.role`)}
+            </figcaption>
           </figure>
         ))}
       </div>

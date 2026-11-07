@@ -10,6 +10,12 @@ export type Agent = (text: string, locale: BotLocale, today: string) => Promise<
 export type Answerer = (question: string, locale: BotLocale) => Promise<string | null>;
 export type Sender = (chatId: number, text: string, menu?: string[]) => Promise<void>;
 
+/** Limitador de uso: true si la clave todavía puede hacer una petición en su ventana. */
+export interface RateLimiter {
+  allow(key: string): Promise<boolean>;
+}
+export type ChatDeps = { answerer: Answerer | null; limiter: RateLimiter };
+
 export type Deps = {
   store: UserStore | null; // null = Upstash sin configurar
   agent: Agent | null; // null = sin key de Groq

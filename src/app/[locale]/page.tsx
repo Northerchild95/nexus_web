@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
+import Chat from "@/components/chat/Chat";
 import About from "@/components/sections/About";
 import Contact from "@/components/sections/Contact";
 import BotSection from "@/components/sections/BotSection";
@@ -42,6 +43,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <BotSection />
       {showContactSection && <Contact />}
       <Footer />
+      <Chat />
     </main>
   );
 }
