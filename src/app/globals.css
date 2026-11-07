@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tokens como canales RGB para soportar opacidad (ej. text-ink/75). */
+:root {
+  color-scheme: light;
+  --surface: 243 246 251; --surface-soft: 250 252 255; --surface-strong: 233 238 248;
+  --card: 255 255 255; --frame: 16 32 58;
+  --ink: 16 32 58; --muted: 96 112 138; --border: 215 223 235;
+  --brand-50: 238 244 255; --brand-100: 216 231 255; --brand-200: 183 209 255; --brand-300: 134 176 255;
+  --brand-400: 82 137 246; --brand-500: 37 99 235; --brand-600: 29 78 216; --brand-700: 30 64 175; --brand-800: 29 53 111;
+  --accent-aqua: 217 242 255; --accent-mint: 223 247 232; --accent-amber: 255 241 204; --accent-rose: 255 224 230;
+  --success: 22 163 74; --danger: 220 38 38; --warning: 217 119 6;
+  --shadow-card: 0 10px 30px rgba(16, 32, 58, 0.08);
+  --shadow-lift: 0 14px 36px rgba(29, 78, 216, 0.14);
+}
+
+/* Modo oscuro: azul muy oscuro (#0b1220) con el azul de marca más luminoso. */
+.dark {
+  color-scheme: dark;
+  --surface: 11 18 32; --surface-soft: 17 26 46; --surface-strong: 30 42 69;
+  --card: 20 31 54; --frame: 51 70 107;
+  --ink: 232 238 249; --muted: 148 163 189; --border: 38 52 82;
+  --brand-50: 20 32 61; --brand-100: 24 41 80; --brand-200: 30 52 105; --brand-300: 96 140 235;
+  --brand-400: 110 160 255; --brand-500: 96 150 255; --brand-600: 49 100 228; --brand-700: 147 187 255; --brand-800: 190 213 255;
+  --accent-aqua: 18 52 78; --accent-mint: 20 60 52; --accent-amber: 70 52 20; --accent-rose: 78 32 48;
+  --success: 52 211 110; --danger: 248 113 113; --warning: 245 158 11;
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --shadow-lift: 0 14px 36px rgba(0, 0, 0, 0.5);
+}
+
+html { background: rgb(var(--surface)); }
+body { color: rgb(var(--ink)); -webkit-font-smoothing: antialiased; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-14px) rotate(var(--r, 0deg)); }
+}
+.float { animation: float 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .float { animation: none; } }
+
+:focus-visible { outline: 3px solid rgb(var(--brand-500)); outline-offset: 3px; }

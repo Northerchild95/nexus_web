@@ -1,0 +1,195 @@
+{
+  "Meta": {
+    "title": "Nexus Life — design your days with clarity",
+    "description": "Focus, tasks, habits and spending in one daily system."
+  },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "es": "ES",
+    "en": "EN"
+  },
+  "ThemeSwitcher": {
+    "toDark": "Switch to dark mode",
+    "toLight": "Switch to light mode"
+  },
+  "Hero": {
+    "badge": "Nexus Life, your personal system",
+    "title": "Design your days with clarity.",
+    "subtitle": "Focus, tasks, habits and spending in one place. Scroll down to fly through the app."
+  },
+  "Scenes": {
+    "focus": {
+      "title": "A focus block, no noise",
+      "copy": "Pick what matters, start the timer, and let the sound tell you when you're done."
+    },
+    "tasks": {
+      "title": "Tasks with real priority",
+      "copy": "High, medium or low, with a due date. Your daily agenda builds itself."
+    },
+    "habits": {
+      "title": "Habits that stick",
+      "copy": "Daily, weekly or monthly. See your streak and what's left for today."
+    },
+    "finance": {
+      "title": "Your spending, by category",
+      "copy": "Log it in seconds and see where your money goes each week."
+    }
+  },
+  "Ui": {
+    "focus": {
+      "label": "Today's focus",
+      "task": "Write proposal",
+      "pause": "Pause session"
+    },
+    "tasks": {
+      "title": "Tasks",
+      "invoice": "Send invoice",
+      "design": "Review design",
+      "gift": "Buy a gift",
+      "bank": "Call the bank",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "habits": {
+      "title": "Habits",
+      "read": "Read 20 min",
+      "walk": "Walk",
+      "meditate": "Meditate",
+      "streak": "Current streak: {days, plural, one {# day} other {# days}}"
+    },
+    "finance": {
+      "title": "Spending",
+      "food": "Food",
+      "transport": "Transport",
+      "leisure": "Leisure",
+      "health": "Health"
+    },
+    "insights": {
+      "title": "Your week",
+      "badge": "Achievement unlocked",
+      "streak": "5-day streak"
+    }
+  },
+  "Footer": {
+    "title": "A clear day starts with a single system.",
+    "note": "Personal learning project. Built with Next.js, GSAP and Lenis."
+  },
+  "Nav": {
+    "label": "Main navigation",
+    "features": "Features",
+    "about": "About us",
+    "milestones": "Milestones",
+    "opinions": "Reviews"
+  },
+  "Features": {
+    "title": "Everything you need for your day",
+    "lead": "Five modules that work together. Here's what each one does.",
+    "focus": {
+      "title": "Focus",
+      "lead": "Work sessions with a single goal.",
+      "p1": "Pick the task that matters and start a timer.",
+      "p2": "Pause and resume without losing your thread.",
+      "p3": "A sound tells you when you pause and when the session is done."
+    },
+    "tasks": {
+      "title": "Tasks",
+      "lead": "What's pending, ordered by what matters.",
+      "p1": "High, medium or low priority on every task.",
+      "p2": "Status and due date so nothing slips by.",
+      "p3": "Your daily agenda is built from your tasks."
+    },
+    "habits": {
+      "title": "Habits",
+      "lead": "Consistency you can see.",
+      "p1": "Daily, weekly or monthly frequency.",
+      "p2": "Progress per habit and your current streak.",
+      "p3": "Charts to see how you're doing over time."
+    },
+    "finance": {
+      "title": "Finance",
+      "lead": "Know where your money goes.",
+      "p1": "Log expenses in seconds.",
+      "p2": "See them by category.",
+      "p3": "Charts to spot what weighs the most."
+    },
+    "insights": {
+      "title": "Insights",
+      "lead": "Your week, summarized.",
+      "p1": "Trends on how your week is going.",
+      "p2": "Achievements that recognize your consistency.",
+      "p3": "A summary on the home screen to start the day with context."
+    }
+  },
+  "About": {
+    "title": "About us",
+    "lead": "Nexus Life is an independent project born from a simple idea: organizing your day shouldn't take five different apps.",
+    "body": "We're building it step by step and learning along the way: a React Native mobile app and this Next.js website, with the care of a real product.",
+    "clarity": {
+      "title": "Clarity",
+      "text": "Every screen shows what you need to decide what's next."
+    },
+    "calm": {
+      "title": "Calm",
+      "text": "A serene design that helps you focus instead of getting distracted."
+    },
+    "consistency": {
+      "title": "Consistency",
+      "text": "Tools to sustain habits, not just to start them."
+    }
+  },
+  "Milestones": {
+    "title": "Project milestones",
+    "lead": "Where we are and where we're headed.",
+    "status": {
+      "done": "Done",
+      "now": "In progress",
+      "next": "Next"
+    },
+    "base": {
+      "title": "App foundation",
+      "text": "Modular architecture and screens for home, tasks, habits, finance and insights."
+    },
+    "landing": {
+      "title": "Bilingual landing",
+      "text": "This website, in Spanish and English, with light and dark mode."
+    },
+    "bot": {
+      "title": "Telegram assistant",
+      "text": "A bot that answers questions about the app, in the works."
+    },
+    "beta": {
+      "title": "Closed beta",
+      "text": "First tests with real people to refine the experience."
+    },
+    "launch": {
+      "title": "Launch",
+      "text": "Publishing the app. No date yet."
+    }
+  },
+  "Opinions": {
+    "title": "Reviews",
+    "lead": "A space for first impressions from the people who try the app.",
+    "sample": "Sample text, to be replaced with real reviews.",
+    "a": {
+      "quote": "I finally see my tasks, habits and spending in one place, without jumping between apps.",
+      "role": "Student"
+    },
+    "b": {
+      "quote": "Focus mode helps me get started. I pick one thing and go.",
+      "role": "Freelancer"
+    },
+    "c": {
+      "quote": "Seeing my habit streak makes me not want to break it.",
+      "role": "Designer"
+    }
+  },
+  "Bot": {
+    "title": "Ask Nexus",
+    "lead": "Get your questions about the app answered on Telegram, anytime.",
+    "q1": "What is Nexus Life?",
+    "q2": "How much does it cost?",
+    "cta": "Open in Telegram",
+    "soon": "Coming soon"
+  }
+}
