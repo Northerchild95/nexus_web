@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
-import { hasLocale, NextIntlClientProvider, type Locale } from "next-intl";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ThemeProvider from "@/components/ui/ThemeProvider";
 import SmoothScroll from "@/components/world/SmoothScroll";
@@ -11,7 +11,8 @@ import "../globals.css";
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
 
-type Props = { children: React.ReactNode; params: Promise<{ locale: Locale }> };
+// Next genera `locale` como string; lo validamos con hasLocale antes de usarlo.
+type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -19,6 +20,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Omit<Props, "children">): Promise<Metadata> {
   const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations({ locale, namespace: "Meta" });
   return {
     metadataBase: new URL(siteUrl),
