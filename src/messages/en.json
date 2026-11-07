@@ -80,7 +80,8 @@
     "features": "Features",
     "about": "About us",
     "milestones": "Milestones",
-    "opinions": "Reviews"
+    "opinions": "Reviews",
+    "faq": "FAQ"
   },
   "Features": {
     "title": "Everything you need for your day",
@@ -191,5 +192,62 @@
     "q2": "How much does it cost?",
     "cta": "Open in Telegram",
     "soon": "Coming soon"
+  },
+  "A11y": {
+    "skip": "Skip to content"
+  },
+  "HowItWorks": {
+    "title": "How it works",
+    "lead": "Three steps to start your day with clarity.",
+    "capture": {
+      "title": "Capture",
+      "text": "Jot down a task, an expense or a habit in seconds."
+    },
+    "focus": {
+      "title": "Focus",
+      "text": "Pick what matters and work in timed blocks."
+    },
+    "review": {
+      "title": "Review",
+      "text": "See the trends and achievements of your week."
+    }
+  },
+  "Faq": {
+    "title": "Frequently asked questions",
+    "lead": "What people ask most about Nexus Life.",
+    "what": {
+      "q": "What is Nexus Life?",
+      "a": "A mobile app that brings your daily focus, tasks, habits and spending into one place."
+    },
+    "available": {
+      "q": "Can I download it yet?",
+      "a": "Not yet. The app is still in development, with no release date or download links."
+    },
+    "price": {
+      "q": "How much does it cost?",
+      "a": "There's no pricing information yet; the app is still in development."
+    },
+    "platforms": {
+      "q": "Which devices will it run on?",
+      "a": "It's built with React Native and designed for mobile. We'll confirm the available platforms at launch."
+    },
+    "bot": {
+      "q": "Can I try something now?",
+      "a": "Yes: the Telegram assistant answers questions about the app, anytime."
+    },
+    "languages": {
+      "q": "Is it in my language?",
+      "a": "This website is in Spanish and English, with light and dark mode."
+    }
+  },
+  "Errors": {
+    "title": "Something went wrong",
+    "text": "An unexpected error occurred. You can try again.",
+    "retry": "Try again"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "text": "The page you're looking for doesn't exist or has moved.",
+    "home": "Back to home"
   }
 }

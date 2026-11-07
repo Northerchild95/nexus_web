@@ -28,7 +28,7 @@ Entrada en `SCENES`, componente `XxxUi` en `components/scenes`, mapearlo en `Wor
 - Usa `bg-card` (no `bg-white`) y los tokens `ink`, `muted`, `surface*`; evita colores hex fijos.
 
 ## Bot de Telegram (gratis)
-Flujo: comandos → FAQ por palabras clave (`src/bot/knowledge.ts`) → LLM gratuito (Groq) → mensaje por defecto.
+Flujo: comandos → FAQ por palabras clave (`src/bot/domain/knowledge.ts`) → LLM gratuito (Groq) → mensaje por defecto.
 1. En Telegram, habla con **@BotFather** → `/newbot` → copia el token.
 2. `cp .env.example .env.local` y rellena `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET` (cualquier texto aleatorio con letras/números/_/-), `GROQ_API_KEY` y `NEXT_PUBLIC_TELEGRAM_BOT` (usuario del bot sin @).
 3. Publica la web (p. ej. Vercel) con esas variables en el panel de entorno. Telegram exige una URL HTTPS pública.
@@ -40,5 +40,31 @@ Los secretos nunca van en código ni en variables `NEXT_PUBLIC_*` (salvo el usua
 Para chats autorizados (`TELEGRAM_ALLOWED_CHAT_IDS`) y con Upstash configurado:
 - Comandos fijos, sin IA: `gasto 18000 almuerzo`, `tarea pagar internet`, `hecho internet`, `habito ejercicio`, `mis tareas`, `mis gastos`.
 - Texto libre (requiere `GROQ_API_KEY`): "gasté 18 mil en almuerzo", "recuérdame..." (no soportado aún), "¿cuánto llevo en comida este mes?".
-- El LLM solo devuelve una acción JSON; `src/bot/validate.ts` la valida antes de guardar. Los datos viven en Redis bajo `nexus:user:<chatId>`.
+- El LLM solo devuelve una acción JSON; `src/bot/domain/validate.ts` la valida antes de guardar. Los datos viven en Redis bajo `nexus:user:<chatId>`.
 - No incluye recordatorios (necesitan tareas programadas) ni conexión con la app móvil.
+
+## Arquitectura y pruebas
+Capas del bot (`src/bot/`), con dependencias que apuntan hacia adentro:
+- `domain/`: reglas puras, sin red ni variables de entorno (tipos, comandos, validación, acciones, FAQ, idioma, fechas, base de conocimiento).
+- `application/`: casos de uso (`reply.ts`) y puertos (`ports.ts`: `UserStore`, `Agent`, `Answerer`, `Deps`). Recibe sus dependencias por parámetro.
+- `infrastructure/`: adaptadores reales (Upstash, Groq, Telegram) y `composition.ts`, el único lugar que lee `process.env`.
+- `src/app/api/telegram/route.ts`: capa delgada que valida el secreto y delega.
+
+Landing: textos en `src/messages`, datos visuales en `src/config`, constructores SEO puros en `src/lib/seo`, secciones en `src/components/sections`, hooks en `src/hooks`.
+
+Pruebas (Node test runner + tsx, sin dependencias extra):
+
+    npm test
+
+- Cada módulo de dominio tiene su `*.test.ts` al lado.
+- `reply.test.ts` prueba el caso de uso con almacén, agente y Groq falsos (reintentos, autorización, caídas).
+- `infrastructure.test.ts` prueba los adaptadores con `fetch` falso.
+- `messages.test.ts` falla si es/en no tienen las mismas claves.
+- CI (`.github/workflows/ci.yml`): typecheck, lint, tests y build en cada push.
+
+Depurar: los logs son una línea JSON `{"level","scope","msg"}`. En Vercel filtra por `"scope":"bot"`, `"groq"`, `"telegram"` o `"webhook"`.
+
+## SEO y PWA
+- Metadatos por idioma, `hreflang`, `viewport` con `themeColor` claro/oscuro, Open Graph (`opengraph-image.tsx`) y Twitter card.
+- JSON-LD `WebSite` y `FAQPage` (generado desde los mismos textos de la FAQ).
+- `sitemap.ts`, `robots.ts` (bloquea solo `/api/`), `manifest.ts` e `icon.tsx`. Es un manifiesto básico: permite añadir a pantalla de inicio, pero no hay service worker ni modo offline.

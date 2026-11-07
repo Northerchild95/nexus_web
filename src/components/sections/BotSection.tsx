@@ -1,5 +1,5 @@
 import { useLocale, useTranslations } from "next-intl";
-import { KNOWLEDGE, type BotLocale } from "@/bot/knowledge";
+import { KNOWLEDGE, type BotLocale } from "@/bot/domain/knowledge";
 
 // Los mensajes del chat de muestra salen de la misma base de conocimiento que usa el bot real.
 const Q1_FAQ = 0; // "qué es"

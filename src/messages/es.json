@@ -80,7 +80,8 @@
     "features": "Funciones",
     "about": "Quiénes somos",
     "milestones": "Hitos",
-    "opinions": "Opiniones"
+    "opinions": "Opiniones",
+    "faq": "Preguntas"
   },
   "Features": {
     "title": "Todo lo que necesitas para tu día",
@@ -191,5 +192,62 @@
     "q2": "¿Cuánto cuesta?",
     "cta": "Abrir en Telegram",
     "soon": "Próximamente"
+  },
+  "A11y": {
+    "skip": "Saltar al contenido"
+  },
+  "HowItWorks": {
+    "title": "Cómo funciona",
+    "lead": "Tres pasos para empezar el día con claridad.",
+    "capture": {
+      "title": "Captura",
+      "text": "Anota una tarea, un gasto o un hábito en segundos."
+    },
+    "focus": {
+      "title": "Enfócate",
+      "text": "Elige lo importante y trabaja en bloques con temporizador."
+    },
+    "review": {
+      "title": "Revisa",
+      "text": "Mira las tendencias y los logros de tu semana."
+    }
+  },
+  "Faq": {
+    "title": "Preguntas frecuentes",
+    "lead": "Lo que más nos preguntan sobre Nexus Life.",
+    "what": {
+      "q": "¿Qué es Nexus Life?",
+      "a": "Una app móvil que reúne en un solo lugar tu foco diario, tus tareas, tus hábitos y tus gastos."
+    },
+    "available": {
+      "q": "¿Ya puedo descargarla?",
+      "a": "Todavía no. La app sigue en desarrollo y aún no hay fecha de lanzamiento ni enlaces de descarga."
+    },
+    "price": {
+      "q": "¿Cuánto cuesta?",
+      "a": "Aún no hay información de precios; la app sigue en desarrollo."
+    },
+    "platforms": {
+      "q": "¿En qué dispositivos funcionará?",
+      "a": "Se construye con React Native y está pensada para móvil. Confirmaremos las plataformas disponibles al lanzar."
+    },
+    "bot": {
+      "q": "¿Puedo probar algo ya?",
+      "a": "Sí: el asistente de Telegram responde dudas sobre la app, a cualquier hora."
+    },
+    "languages": {
+      "q": "¿Está en mi idioma?",
+      "a": "Esta web está en español e inglés, con modo claro y oscuro."
+    }
+  },
+  "Errors": {
+    "title": "Algo salió mal",
+    "text": "Ocurrió un error inesperado. Puedes intentarlo de nuevo.",
+    "retry": "Reintentar"
+  },
+  "NotFound": {
+    "title": "Página no encontrada",
+    "text": "La página que buscas no existe o cambió de lugar.",
+    "home": "Volver al inicio"
   }
 }

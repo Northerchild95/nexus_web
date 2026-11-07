@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import LocaleSwitcher from "@/components/ui/LocaleSwitcher";
 import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
 
-const LINKS = ["features", "about", "milestones", "opinions"] as const;
+const LINKS = ["features", "about", "milestones", "opinions", "faq"] as const;
 
 export default function Header() {
   const t = useTranslations("Nav");
