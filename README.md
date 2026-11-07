@@ -35,3 +35,10 @@ Flujo: comandos → FAQ por palabras clave (`src/bot/knowledge.ts`) → LLM grat
 4. Registra el webhook: `npm run bot:webhook -- https://tu-dominio.com`
 5. Escríbele al bot. Para probar en local necesitas un túnel HTTPS (cloudflared o ngrok) y usar esa URL en el paso 4.
 Los secretos nunca van en código ni en variables `NEXT_PUBLIC_*` (salvo el usuario público del bot).
+
+## Bot personal (gastos, tareas, hábitos)
+Para chats autorizados (`TELEGRAM_ALLOWED_CHAT_IDS`) y con Upstash configurado:
+- Comandos fijos, sin IA: `gasto 18000 almuerzo`, `tarea pagar internet`, `hecho internet`, `habito ejercicio`, `mis tareas`, `mis gastos`.
+- Texto libre (requiere `GROQ_API_KEY`): "gasté 18 mil en almuerzo", "recuérdame..." (no soportado aún), "¿cuánto llevo en comida este mes?".
+- El LLM solo devuelve una acción JSON; `src/bot/validate.ts` la valida antes de guardar. Los datos viven en Redis bajo `nexus:user:<chatId>`.
+- No incluye recordatorios (necesitan tareas programadas) ni conexión con la app móvil.

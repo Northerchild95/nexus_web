@@ -1,7 +1,15 @@
 // Fuente de verdad del bot. Solo afirma lo que es cierto hoy; edítalo cuando cambie el producto.
 export type BotLocale = "es" | "en";
 type Faq = { keywords: string[]; answer: string };
-type Knowledge = { welcome: string; fallback: string; menu: string[]; faqs: Faq[] };
+type Knowledge = {
+  welcome: string;
+  welcomePersonal: string;
+  unsupported: string;
+  fallback: string;
+  menu: string[];
+  menuPersonal: string[];
+  faqs: Faq[];
+};
 
 export const KNOWLEDGE: Record<BotLocale, Knowledge> = {
   es: {
@@ -10,6 +18,11 @@ export const KNOWLEDGE: Record<BotLocale, Knowledge> = {
     fallback:
       "No tengo esa información. Solo puedo responder preguntas sobre Nexus Life (no registro tareas ni hábitos; para eso está la app). Usa los botones de abajo o pregúntame con otras palabras.",
     menu: ["Qué es", "Funciones", "Foco", "Tareas", "Hábitos", "Finanzas", "Precio", "Lanzamiento"],
+    menuPersonal: ["Mis tareas", "Mis gastos", "Qué es", "Funciones", "Precio", "Lanzamiento"],
+    welcomePersonal:
+      "¡Hola! Además de responder dudas, guardo tus gastos, tareas y hábitos. Prueba: «gasté 18 mil en almuerzo», «tarea pagar internet el viernes», «hice ejercicio hoy», «¿cuánto llevo en comida este mes?» o «mis tareas».",
+    unsupported:
+      "Eso todavía no lo puedo hacer (por ejemplo recordatorios o borrar datos). Sí puedo registrar gastos, tareas y hábitos, y consultarlos.",
     faqs: [
       { keywords: ["que es", "nexus", "de que trata", "para que sirve"],
         answer: "Nexus Life es una app móvil que reúne en un solo lugar tu foco diario, tus tareas, tus hábitos y tus gastos, para que diseñes tus días con claridad." },
@@ -35,6 +48,11 @@ export const KNOWLEDGE: Record<BotLocale, Knowledge> = {
     fallback:
       "I don't have that information. I can only answer questions about Nexus Life (I don't log tasks or habits; the app does that). Use the buttons below or rephrase your question.",
     menu: ["What is it", "Features", "Focus", "Tasks", "Habits", "Finance", "Price", "Release"],
+    menuPersonal: ["My tasks", "My expenses", "What is it", "Features", "Price", "Release"],
+    welcomePersonal:
+      "Hi! Besides answering questions, I save your expenses, tasks and habits. Try: \"spent 18k on lunch\", \"task pay internet on Friday\", \"I exercised today\", \"how much have I spent on food this month?\" or \"my tasks\".",
+    unsupported:
+      "I can't do that yet (for example reminders or deleting data). I can log expenses, tasks and habits, and look them up.",
     faqs: [
       { keywords: ["what is", "nexus", "about", "what's it for"],
         answer: "Nexus Life is a mobile app that brings your daily focus, tasks, habits and spending into one place, so you can design your days with clarity." },

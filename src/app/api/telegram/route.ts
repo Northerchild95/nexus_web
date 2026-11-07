@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { buildReply } from "@/bot/reply";
 import { pickLocale } from "@/bot/detect";
-import { KNOWLEDGE } from "@/bot/knowledge";
+import { buildReply } from "@/bot/reply";
 import { sendMessage } from "@/bot/telegram";
 
 export const runtime = "nodejs";
 
 type Update = {
+  update_id?: number;
   message?: { text?: string; chat?: { id: number }; from?: { language_code?: string } };
 };
 
@@ -24,7 +24,8 @@ export async function POST(req: Request) {
 
   const locale = pickLocale(text, update.message?.from?.language_code);
   try {
-    await sendMessage(chatId, await buildReply(text, locale), KNOWLEDGE[locale].menu);
+    const reply = await buildReply({ text, chatId, updateId: update.update_id ?? 0, locale });
+    if (reply) await sendMessage(chatId, reply.text, reply.menu);
   } catch (e) {
     console.error("[bot]", e);
   }
