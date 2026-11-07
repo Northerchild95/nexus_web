@@ -1,4 +1,12 @@
-export async function sendMessage(chatId: number, text: string, menu?: string[]): Promise<void> {
+type ReplyMarkup =
+  | { keyboard: { text: string }[][]; resize_keyboard?: boolean; is_persistent?: boolean }
+  | { remove_keyboard: true };
+
+export async function sendMessage(
+  chatId: number,
+  text: string,
+  replyMarkup?: ReplyMarkup,
+): Promise<void> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) throw new Error("Falta TELEGRAM_BOT_TOKEN");
   const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -8,18 +16,7 @@ export async function sendMessage(chatId: number, text: string, menu?: string[])
     body: JSON.stringify({
       chat_id: chatId,
       text: text.slice(0, 4000),
-      // Teclado con atajos: el botón envía su texto, que la FAQ ya sabe responder.
-      ...(menu && {
-        reply_markup: {
-          keyboard: menu.reduce<{ text: string }[][]>((rows, label, i) => {
-            if (i % 2 === 0) rows.push([]);
-            rows[rows.length - 1].push({ text: label });
-            return rows;
-          }, []),
-          resize_keyboard: true,
-          is_persistent: true,
-        },
-      }),
+      ...(replyMarkup ? { reply_markup: replyMarkup } : {}),
     }),
   });
   if (!res.ok) console.error("[bot] sendMessage", res.status, await res.text());
