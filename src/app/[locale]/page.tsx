@@ -14,6 +14,7 @@ import HowItWorks from "@/components/sections/HowItWorks";
 import Milestones from "@/components/sections/Milestones";
 import Opinions from "@/components/sections/Opinions";
 import Privacy from "@/components/sections/Privacy";
+import Subscribe from "@/components/sections/Subscribe";
 import Tech from "@/components/sections/Tech";
 import JsonLd from "@/components/ui/JsonLd";
 import WorldSection from "@/components/world/WorldSection";
@@ -40,6 +41,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Opinions />
       <Faq />
       <Privacy />
+      <Subscribe />
       <BotSection />
       {showContactSection && <Contact />}
       <Footer />

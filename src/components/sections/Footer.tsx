@@ -1,13 +1,14 @@
 import { useTranslations } from "next-intl";
 import { contactChannels, showContactSection } from "@/config/contact";
 import { visibleSections } from "@/config/sections";
+import { subscribeEnabled } from "@/config/subscribe";
 import { linkAttrs } from "@/lib/contact";
 
 export default function Footer() {
   const t = useTranslations("Footer");
   const nav = useTranslations("Nav");
   const contact = useTranslations("Contact");
-  const sections = visibleSections(showContactSection);
+  const sections = visibleSections({ contact: showContactSection, subscribe: subscribeEnabled });
   const columns = [
     { key: "product", links: sections.filter((s) => s.column === "product") },
     { key: "project", links: sections.filter((s) => s.column === "project") },

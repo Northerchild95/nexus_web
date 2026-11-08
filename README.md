@@ -86,3 +86,12 @@ Depurar: los logs son una línea JSON `{"level","scope","msg"}`. En Vercel filtr
 
 ## FAQ animada
 La duración y la curva están en `src/config/ui.ts` (`FAQ_ANIMATION_MS`, `FAQ_EASING`). Respeta `prefers-reduced-motion`.
+
+## Suscripción por correo (doble opt-in)
+Flujo: formulario → `POST /api/subscribe` → guarda `pending` en Upstash y envía un correo de confirmación → la persona hace clic en `/api/subscribe/confirm?token=…` → `confirmed` → redirige a `/{locale}/newsletter/confirmed`. Cada correo incluye enlace de baja (`/api/subscribe/unsubscribe`) y cabecera `List-Unsubscribe`.
+- Código en `src/newsletter/` con las mismas capas: `domain/` (validación de correo, plantillas), `application/` (`subscribe`, `confirmSubscription`, `unsubscribe` + puertos), `infrastructure/` (Upstash, Brevo/Resend, composición). Lo común (Upstash, limitadores) está en `src/shared/`.
+- Se activa solo si existen `UPSTASH_REDIS_REST_*`, `EMAIL_FROM` y `BREVO_API_KEY` o `RESEND_API_KEY`; si falta algo, la sección, el botón del header y el aviso de privacidad no aparecen. Requiere redeploy al cambiar variables.
+- Protecciones: verificación de origen, campo trampa (honeypot), 5 intentos por visitante por hora, tope de 80 correos al día, enfriamiento de 10 min para reenviar al mismo correo, y la respuesta no revela si un correo ya estaba suscrito. El enlace de confirmación vale 7 días.
+- Los enlaces del correo usan el origen real de la petición, no una variable de entorno.
+- Lista de confirmados: en Upstash, `SMEMBERS nexus:subs:confirmed`. Cada persona: `GET nexus:sub:<correo>`.
+- Cambiar de proveedor: solo define la otra key; el resto no cambia (`infrastructure/mailer.ts`).

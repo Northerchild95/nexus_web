@@ -3,8 +3,9 @@ import LocaleSwitcher from "@/components/ui/LocaleSwitcher";
 import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
 import { showContactSection } from "@/config/contact";
 import { visibleSections } from "@/config/sections";
+import { subscribeEnabled } from "@/config/subscribe";
 
-const LINKS = visibleSections(showContactSection).filter((s) => s.nav);
+const LINKS = visibleSections({ contact: showContactSection, subscribe: subscribeEnabled }).filter((s) => s.nav);
 
 export default function Header() {
   const t = useTranslations("Nav");
@@ -21,6 +22,11 @@ export default function Header() {
         ))}
       </nav>
       <div className="pointer-events-auto flex items-center gap-2">
+        {subscribeEnabled && (
+          <a href="#subscribe" className="hidden rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-lift md:inline-block">
+            {t("subscribe")}
+          </a>
+        )}
         <ThemeSwitcher />
         <LocaleSwitcher />
       </div>

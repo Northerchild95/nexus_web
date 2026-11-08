@@ -15,7 +15,8 @@
   "Hero": {
     "badge": "Nexus Life, tu sistema personal",
     "title": "Diseña tus días con claridad.",
-    "subtitle": "Foco, tareas, hábitos y gastos en un solo lugar. Baja con el scroll y recorre la app."
+    "subtitle": "Foco, tareas, hábitos y gastos en un solo lugar. Baja con el scroll y recorre la app.",
+    "notify": "Avísame del lanzamiento"
   },
   "Scenes": {
     "focus": {
@@ -89,7 +90,8 @@
     "how": "Cómo funciona",
     "tech": "Tecnología",
     "privacy": "Privacidad",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "subscribe": "Avísame"
   },
   "Features": {
     "title": "Todo lo que necesitas para tu día",
@@ -301,6 +303,10 @@
     "app": {
       "title": "La app",
       "text": "Sigue en desarrollo, por lo que su política de privacidad todavía no está publicada."
+    },
+    "newsletter": {
+      "title": "Aviso de lanzamiento",
+      "text": "Si te suscribes, guardamos tu correo y usamos un servicio de envío de correos solo para confirmar tu suscripción y avisarte del lanzamiento. Puedes darte de baja desde cualquier correo."
     }
   },
   "Contact": {
@@ -331,5 +337,37 @@
     "error": "No pude responder ahora. Inténtalo de nuevo en un momento.",
     "rateLimited": "Has enviado muchos mensajes. Espera unos minutos e inténtalo otra vez.",
     "reset": "Nueva conversación"
+  },
+  "Subscribe": {
+    "title": "Entérate cuando salga",
+    "lead": "Déjanos tu correo y te avisamos cuando la app esté lista. Sin spam: solo ese aviso.",
+    "label": "Tu correo electrónico",
+    "placeholder": "tu@correo.com",
+    "submit": "Avísame",
+    "sending": "Enviando…",
+    "note": "Te enviaremos un correo para confirmar. Puedes darte de baja cuando quieras.",
+    "success": "¡Listo! Revisa tu correo (y la carpeta de spam) para confirmar tu suscripción.",
+    "invalid": "Ese correo no parece válido. Revísalo e inténtalo de nuevo.",
+    "rateLimited": "Has intentado muchas veces. Espera un rato e inténtalo otra vez.",
+    "unavailable": "No pudimos enviar el correo ahora. Inténtalo más tarde."
+  },
+  "Newsletter": {
+    "home": "Volver al inicio",
+    "confirmed": {
+      "title": "¡Suscripción confirmada!",
+      "text": "Gracias. Te avisaremos cuando Nexus Life esté lista."
+    },
+    "unsubscribed": {
+      "title": "Te diste de baja",
+      "text": "No recibirás más correos. Puedes volver a suscribirte cuando quieras."
+    },
+    "invalid": {
+      "title": "Enlace no válido",
+      "text": "El enlace expiró o ya no es válido. Puedes suscribirte de nuevo desde la página principal."
+    },
+    "error": {
+      "title": "Algo salió mal",
+      "text": "No pudimos procesar tu solicitud. Inténtalo de nuevo en un momento."
+    }
   }
 }

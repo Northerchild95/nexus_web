@@ -12,7 +12,10 @@ test("cada sección tiene etiqueta de navegación en es y en", () => {
     assert.ok(s.id in es.Nav && s.id in en.Nav, `Nav.${s.id} falta`);
   }
 });
-test("sin canales de contacto no hay enlace a #contact", () => {
-  assert.ok(!visibleSections(false).some((s) => s.id === "contact"));
-  assert.ok(visibleSections(true).some((s) => s.id === "contact"));
+test("las secciones opcionales solo aparecen si están activas", () => {
+  const ids = (f: { contact: boolean; subscribe: boolean }) => visibleSections(f).map((s) => s.id);
+  assert.ok(!ids({ contact: false, subscribe: false }).includes("contact"));
+  assert.ok(!ids({ contact: false, subscribe: false }).includes("subscribe"));
+  assert.ok(ids({ contact: true, subscribe: true }).includes("contact"));
+  assert.ok(ids({ contact: true, subscribe: true }).includes("subscribe"));
 });

@@ -1,4 +1,4 @@
-export type SectionId = "how" | "features" | "about" | "tech" | "milestones" | "opinions" | "faq" | "privacy" | "contact";
+export type SectionId = "subscribe" | "how" | "features" | "about" | "tech" | "milestones" | "opinions" | "faq" | "privacy" | "contact";
 type FooterColumn = "product" | "project" | null;
 
 /** Fuente única de las anclas: el Header y el Footer se generan desde aquí. */
@@ -6,6 +6,7 @@ export const SECTIONS: readonly { id: SectionId; nav: boolean; column: FooterCol
   { id: "how", nav: false, column: "product" },
   { id: "features", nav: true, column: "product" },
   { id: "opinions", nav: false, column: "product" },
+  { id: "subscribe", nav: false, column: "product" },
   { id: "faq", nav: true, column: "product" },
   { id: "about", nav: true, column: "project" },
   { id: "tech", nav: false, column: "project" },
@@ -14,5 +15,8 @@ export const SECTIONS: readonly { id: SectionId; nav: boolean; column: FooterCol
   { id: "contact", nav: true, column: null },
 ];
 
-export const visibleSections = (hasContact: boolean) =>
-  SECTIONS.filter((s) => s.id !== "contact" || hasContact);
+export type Features = { contact: boolean; subscribe: boolean };
+
+/** Secciones opcionales (contacto, suscripción) solo existen si están configuradas. */
+export const visibleSections = (f: Features) =>
+  SECTIONS.filter((s) => (s.id !== "contact" || f.contact) && (s.id !== "subscribe" || f.subscribe));

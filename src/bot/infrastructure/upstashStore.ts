@@ -1,6 +1,6 @@
 import type { UserStore } from "../application/ports";
 import type { UserData } from "../domain/types";
-import { createUpstashCommand } from "./upstashClient";
+import { createUpstashCommand } from "../../shared/infrastructure/upstashClient";
 
 const empty = (): UserData => ({ expenses: [], tasks: [], habits: [], lastUpdate: 0 });
 const key = (chatId: number) => `nexus:user:${chatId}`;

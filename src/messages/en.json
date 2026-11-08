@@ -15,7 +15,8 @@
   "Hero": {
     "badge": "Nexus Life, your personal system",
     "title": "Design your days with clarity.",
-    "subtitle": "Focus, tasks, habits and spending in one place. Scroll down to fly through the app."
+    "subtitle": "Focus, tasks, habits and spending in one place. Scroll down to fly through the app.",
+    "notify": "Notify me at launch"
   },
   "Scenes": {
     "focus": {
@@ -89,7 +90,8 @@
     "how": "How it works",
     "tech": "Technology",
     "privacy": "Privacy",
-    "contact": "Contact"
+    "contact": "Contact",
+    "subscribe": "Notify me"
   },
   "Features": {
     "title": "Everything you need for your day",
@@ -301,6 +303,10 @@
     "app": {
       "title": "The app",
       "text": "It's still in development, so its privacy policy isn't published yet."
+    },
+    "newsletter": {
+      "title": "Launch notification",
+      "text": "If you subscribe, we store your email and use an email-sending service only to confirm your subscription and notify you at launch. You can unsubscribe from any email."
     }
   },
   "Contact": {
@@ -331,5 +337,37 @@
     "error": "I couldn't answer right now. Please try again in a moment.",
     "rateLimited": "You've sent a lot of messages. Wait a few minutes and try again.",
     "reset": "New conversation"
+  },
+  "Subscribe": {
+    "title": "Hear when it's out",
+    "lead": "Leave your email and we'll let you know when the app is ready. No spam: just that one message.",
+    "label": "Your email address",
+    "placeholder": "you@email.com",
+    "submit": "Notify me",
+    "sending": "Sending…",
+    "note": "We'll send you an email to confirm. You can unsubscribe anytime.",
+    "success": "Done! Check your email (and your spam folder) to confirm your subscription.",
+    "invalid": "That email doesn't look valid. Check it and try again.",
+    "rateLimited": "You've tried many times. Wait a while and try again.",
+    "unavailable": "We couldn't send the email right now. Please try again later."
+  },
+  "Newsletter": {
+    "home": "Back to home",
+    "confirmed": {
+      "title": "Subscription confirmed!",
+      "text": "Thank you. We'll let you know when Nexus Life is ready."
+    },
+    "unsubscribed": {
+      "title": "You've unsubscribed",
+      "text": "You won't receive any more emails. You can subscribe again anytime."
+    },
+    "invalid": {
+      "title": "Invalid link",
+      "text": "The link has expired or is no longer valid. You can subscribe again from the home page."
+    },
+    "error": {
+      "title": "Something went wrong",
+      "text": "We couldn't process your request. Please try again in a moment."
+    }
   }
 }

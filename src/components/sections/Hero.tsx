@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { useTranslations } from "next-intl";
+import { subscribeEnabled } from "@/config/subscribe";
 
 const rot = (deg: number) => ({ "--r": `${deg}deg` }) as CSSProperties;
 
@@ -17,6 +18,11 @@ export default function Hero() {
         {t("title")}
       </h1>
       <p className="relative mt-6 max-w-xl text-lg leading-7 text-muted">{t("subtitle")}</p>
+      {subscribeEnabled && (
+        <a href="#subscribe" className="relative mt-8 rounded-full bg-brand-600 px-6 py-3 font-semibold text-white shadow-lift">
+          {t("notify")}
+        </a>
+      )}
     </section>
   );
 }
