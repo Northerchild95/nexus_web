@@ -1,5 +1,5 @@
 "use client";
-import { useState, type FormEvent } from "react";
+import { useState, type SubmitEvent } from "react";
 import { useSubscribe } from "@/hooks/useSubscribe";
 
 export type SubscribeLabels = {
@@ -15,7 +15,7 @@ export default function SubscribeForm({ locale, labels }: { locale: string; labe
     success: labels.success, invalid: labels.invalid, rate_limited: labels.rateLimited, unavailable: labels.unavailable,
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     void submit(email, website);
   };

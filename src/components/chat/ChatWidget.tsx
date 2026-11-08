@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type SubmitEvent } from "react";
 import { useChat } from "@/hooks/useChat";
 import { CHAT_MAX_LENGTH } from "@/config/chat";
 
@@ -29,7 +29,7 @@ export default function ChatWidget({ locale, labels, suggestions }: { locale: st
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const submit = (e: FormEvent) => {
+  const submit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const text = draft;
     setDraft("");
