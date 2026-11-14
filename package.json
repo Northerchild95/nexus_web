@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "bot:webhook": "node --env-file=.env.local scripts/set-webhook.mjs",
     "format": "prettier --write .",
-    "test": "tsx --test \"src/**/*.test.ts\""
+    "test": "tsx --test \"src/**/*.test.ts\"",
+    "newsletter:send": "tsx --env-file=.env.local scripts/newsletter-send.ts"
   },
   "dependencies": {
     "gsap": "^3.12.5",

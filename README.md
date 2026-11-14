@@ -95,3 +95,18 @@ Flujo: formulario → `POST /api/subscribe` → guarda `pending` en Upstash y en
 - Los enlaces del correo usan el origen real de la petición, no una variable de entorno.
 - Lista de confirmados: en Upstash, `SMEMBERS nexus:subs:confirmed`. Cada persona: `GET nexus:sub:<correo>`.
 - Cambiar de proveedor: solo define la otra key; el resto no cambia (`infrastructure/mailer.ts`).
+
+## Enviar una campaña (aviso de lanzamiento)
+Script: `scripts/newsletter-send.ts` (capa delgada). La lógica vive en `src/newsletter/application/broadcast.ts` (`planBroadcast`, `runBroadcast`) y se prueba con piezas falsas.
+
+    npm run newsletter:send -- --campaign launch --site https://TU-DOMINIO                       # 1) simulación (no envía)
+    npm run newsletter:send -- --campaign launch --site https://TU-DOMINIO --test tu@correo.com  # 2) un correo de prueba a ti
+    npm run newsletter:send -- --campaign launch --site https://TU-DOMINIO --send               # 3) envío real
+
+- Campañas y textos: `src/newsletter/domain/campaigns.ts` (`launch`, `update`; es/en). Edita el texto antes de enviar.
+- Opciones: `--cta URL` (a dónde lleva el botón; por defecto el sitio, p. ej. el enlace de la tienda), `--limit N` (máx. por ejecución, defecto 100), `--locale en` (solo para `--test`).
+- Seguridad: simulación por defecto; `--send` pide escribir `ENVIAR N`; solo envía a `confirmed`; cada correo lleva el enlace de baja de esa persona y la cabecera `List-Unsubscribe`.
+- No duplica: guarda a quién ya le llegó cada campaña (`nexus:campaign:<id>:sent` en Upstash). Si hay más confirmados que `--limit`, vuelve a ejecutar y continúa con los pendientes.
+- Pausa 300 ms entre envíos y se detiene tras 3 fallos seguidos (key inválida, límite diario, caída del proveedor).
+- Límite: el plan gratuito de tu proveedor tiene un tope diario que comparte con los correos de confirmación. Revísalo antes de enviar a muchas personas.
+- Nota: si el proceso muere justo después de enviar y antes de registrar, esa persona podría recibir el correo dos veces (se prefiere eso a que alguien se quede sin recibirlo).

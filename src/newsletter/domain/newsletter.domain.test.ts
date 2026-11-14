@@ -30,3 +30,31 @@ test("correo de confirmación: escapa HTML en los enlaces", () => {
   const e = confirmationEmail("es", { confirmUrl: 'https://x/"><script>', unsubscribeUrl: "https://x/u" });
   assert.ok(!e.html.includes("<script>"));
 });
+
+import { CAMPAIGN_IDS, isCampaignId } from "./campaigns";
+import { maskEmail } from "./email";
+import { campaignEmail } from "./templates";
+
+test("maskEmail oculta el usuario sin perder el dominio", () => {
+  assert.equal(maskEmail("ana.perez@gmail.com"), "a********@gmail.com");
+  assert.equal(maskEmail("a@b.co"), "a*@b.co");
+});
+test("campañas: ids válidos", () => {
+  assert.ok(CAMPAIGN_IDS.includes("launch") && isCampaignId("update"));
+  assert.equal(isCampaignId("spam"), false);
+  assert.equal(isCampaignId(5), false);
+});
+test("campaignEmail: cada campaña e idioma tiene asunto, botón y enlace de baja", () => {
+  for (const id of CAMPAIGN_IDS) {
+    for (const loc of ["es", "en"] as const) {
+      const e = campaignEmail(id, loc, { buttonUrl: "https://x/app", unsubscribeUrl: "https://x/u?a=1&b=2" });
+      assert.ok(e.subject.length > 3);
+      assert.ok(e.html.includes("https://x/app") && e.text.includes("https://x/app"));
+      assert.ok(e.html.includes("https://x/u?a=1&amp;b=2") && e.text.includes("https://x/u?a=1&b=2"));
+    }
+  }
+});
+test("campaignEmail: escapa HTML en los textos y enlaces", () => {
+  const e = campaignEmail("launch", "es", { buttonUrl: 'https://x/"><script>alert(1)</script>', unsubscribeUrl: "https://x/u" });
+  assert.ok(!e.html.includes("<script>"));
+});

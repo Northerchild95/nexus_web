@@ -12,6 +12,7 @@ function setup(over: Partial<SubscribeDeps> = {}, clock = { t: 1_000_000 }) {
     get: async (e) => db.get(e) ?? null,
     byToken: async (t) => [...db.values()].find((s) => s.token === t) ?? null,
     save: async (s) => { db.set(s.email, { ...s }); },
+    listConfirmed: async () => [...db.values()].filter((s) => s.status === "confirmed"),
   };
   const allow = { allow: async () => true };
   const deps: SubscribeDeps = { store, mailer: async (m) => { sent.push(m); }, limiter: allow, emailBudget: allow, token: () => TOKEN, now: () => clock.t, ...over };

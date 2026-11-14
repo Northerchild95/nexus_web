@@ -45,6 +45,8 @@ test("almacén Upstash: guarda por correo y por token, y mantiene el conjunto de
     if (cmd === "SET") kv.set(key, val);
     if (cmd === "SADD") set.add(val);
     if (cmd === "SREM") set.delete(val);
+    if (cmd === "SMEMBERS") result = [...set];
+    if (cmd === "MGET") result = (JSON.parse(init.body as string) as string[]).slice(1).map((k) => kv.get(k) ?? null);
     return new Response(JSON.stringify({ result }));
   }) as unknown as typeof fetch;
   const store = createSubscriberStore("https://u", "t", fetchImpl);
@@ -57,6 +59,10 @@ test("almacén Upstash: guarda por correo y por token, y mantiene el conjunto de
   assert.deepEqual([...set], ["ana@mail.com"]);
   await store.save({ ...s, status: "unsubscribed" });
   assert.equal(set.size, 0);
+  await store.save({ ...s, status: "confirmed" });
+  await store.save({ ...s, email: "luis@mail.com", token: "b".repeat(48), status: "confirmed" });
+  await store.save({ ...s, email: "pepe@mail.com", token: "c".repeat(48), status: "pending" });
+  assert.deepEqual((await store.listConfirmed()).map((x) => x.email).sort(), ["ana@mail.com", "luis@mail.com"]);
 });
 test("composición: null si falta algo; con Brevo o Resend queda activa", () => {
   const base = { UPSTASH_REDIS_REST_URL: "u", UPSTASH_REDIS_REST_TOKEN: "t", EMAIL_FROM: "a@b.co" };
@@ -69,4 +75,19 @@ test("composición: null si falta algo; con Brevo o Resend queda activa", () => 
 test("token aleatorio: 48 hex y distinto cada vez", () => {
   assert.match(randomToken(), /^[a-f0-9]{48}$/);
   assert.notEqual(randomToken(), randomToken());
+});
+
+test("registro de campañas: SADD / SMEMBERS por campaña", async () => {
+  const { createCampaignLedger } = await import("./campaignLedger");
+  const sets = new Map<string, Set<string>>();
+  const fetchImpl = (async (_u: unknown, init: RequestInit) => {
+    const [cmd, key, val] = JSON.parse(init.body as string) as string[];
+    if (cmd === "SADD") { (sets.get(key) ?? sets.set(key, new Set()).get(key)!).add(val); return new Response(JSON.stringify({ result: 1 })); }
+    return new Response(JSON.stringify({ result: [...(sets.get(key) ?? [])] }));
+  }) as unknown as typeof fetch;
+  const ledger = createCampaignLedger("https://u", "t", fetchImpl);
+  assert.equal((await ledger.sentTo("launch")).size, 0);
+  await ledger.markSent("launch", "ana@mail.com");
+  await ledger.markSent("update", "otra@mail.com");
+  assert.deepEqual([...(await ledger.sentTo("launch"))], ["ana@mail.com"]);
 });

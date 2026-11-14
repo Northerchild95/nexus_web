@@ -18,6 +18,12 @@ export function createSubscriberStore(url: string, token: string, fetchImpl: typ
       const email = await command(["GET", tokenKey(t)]);
       return typeof email === "string" ? store.get(email) : null;
     },
+    async listConfirmed() {
+      const emails = await command(["SMEMBERS", CONFIRMED_SET]);
+      if (!Array.isArray(emails) || emails.length === 0) return [];
+      const raws = await command(["MGET", ...emails.map((e) => recordKey(String(e)))]); // una sola petición para todos
+      return (Array.isArray(raws) ? raws : []).map(parse).filter((s): s is Subscriber => s !== null && s.status === "confirmed");
+    },
     async save(s) {
       await command(["SET", recordKey(s.email), JSON.stringify(s)]);
       await command(["SET", tokenKey(s.token), s.email]);
