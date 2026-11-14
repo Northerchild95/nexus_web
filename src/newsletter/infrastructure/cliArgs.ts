@@ -14,7 +14,11 @@ export function parseArgs(argv: string[]): ParsedArgs {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (!a.startsWith("--")) return { ok: false, error: `Argumento inesperado: ${a}` };
-    const [k, inline] = a.slice(2).split(/=(.*)/s);
+    // Sin bandera `s` (dotAll): el target es ES2017. indexOf preserva el resto tal cual, incluidos saltos de línea.
+    const raw = a.slice(2);
+    const eq = raw.indexOf("=");
+    const k = eq === -1 ? raw : raw.slice(0, eq);
+    const inline = eq === -1 ? undefined : raw.slice(eq + 1);
     if (inline !== undefined) opts.set(k, inline);
     else if (k === "send") opts.set(k, true);
     else if (argv[i + 1] !== undefined && !argv[i + 1].startsWith("--")) opts.set(k, argv[++i]);
